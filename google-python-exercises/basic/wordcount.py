@@ -48,6 +48,7 @@ def word_Count(filename):
   f= open(filename,'rU')
   text=f.read() 
   text=text.lower()
+  f.close()
   list=text.split();  
   md={}
   for s in list:
