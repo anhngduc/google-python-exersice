@@ -25,6 +25,29 @@ def read_urls(filename):
   Screens out duplicate urls and returns the urls sorted into
   increasing order."""
   # +++your code here+++
+  file=open(filename)
+  text= file.read()
+  links=re.findall(r'GET (\S+puzzle\S+)',text)
+  ans=[]
+  for link in links:
+    temp='http://code.google.com'+link
+    if not(temp in ans):
+      ans.append(temp)
+  ans=sorted(ans,key=cmpLink)
+  print 'org: %d ; ans: %d'%(len(links),len(ans))
+  return ans
+  
+  
+def cmpLink(s):
+  strl=range(-1,-len(s),-1)
+  ans=''
+  for chpos in strl:
+    if s[chpos]==r'/':
+      break
+    ans=s[chpos]+ans
+  #print 'filename',ans
+  return ans
+  
   
 
 def download_images(img_urls, dest_dir):
@@ -36,6 +59,12 @@ def download_images(img_urls, dest_dir):
   Creates the directory if necessary.
   """
   # +++your code here+++
+  i=0
+  for link in img_urls:
+    print 'download:',link
+    urllib.urlretrieve(link,'img'+str(i)+'.jpg')
+    print '-----'
+    i+=1
   
 
 def main():
